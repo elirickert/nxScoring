@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Register xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/crm/2011/tools/pluginregistration">
+  <Solutions>
+    <Solution Assembly="Nx.Score.Plugins.NxScorePlugins.dll" Id="50742b52-9eaf-4873-a5e6-f8c702066c7f" IsolationMode="Sandbox" SourceType="Database">
+      <PluginTypes>
+        <clear />
+        <Plugin Description="Plug-in to Create of nx_pinballroundscore" FriendlyName="Create of nx_pinballroundscore" Name="Nx.Score.Plugins.NxScorePlugins.PostOperationnx_pinballroundscoreCreate" Id="219d614c-1335-4372-94c9-ea086d743f8f" TypeName="Nx.Score.Plugins.NxScorePlugins.PostOperationnx_pinballroundscoreCreate">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="Create of nx_pinballroundscore" Description="Create of nx_pinballroundscore" Id="3df71096-fb8b-f011-b4cc-000d3a83385b" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Create" Mode="Synchronous" PrimaryEntityName="nx_pinballroundscore" Rank="1" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to Update of nx_pinballroundscore" FriendlyName="Update of nx_pinballroundscore" Name="Nx.Score.Plugins.NxScorePlugins.PostOperationnx_pinballroundscoreUpdate" Id="82a52fd3-2e21-4225-a63c-9f64842a5488" TypeName="Nx.Score.Plugins.NxScorePlugins.PostOperationnx_pinballroundscoreUpdate">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="Update of nx_pinballroundscore" Description="Update of nx_pinballroundscore" FilteringAttributes="nx_pointsafterround" Id="87dfcca2-fb8b-f011-b4cc-000d3a83385b" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="Update" Mode="Synchronous" PrimaryEntityName="nx_pinballroundscore" Rank="1" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+      </PluginTypes>
+    </Solution>
+  </Solutions>
+  <XamlWorkflows />
+  <DataProviders />
+</Register>
