@@ -1,6 +1,9 @@
 using System;
+using System.Text.Json;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Nx.Score.Plugins.NxScorePlugins.Logic;
+using Nx.Score.Plugins.NxScorePlugins.Model;
 
 namespace Nx.Score.Plugins.NxScorePlugins
 {
@@ -34,11 +37,15 @@ namespace Nx.Score.Plugins.NxScorePlugins
                     throw new InvalidPluginExecutionException("Target Entity is null");
                 }
 
-                var targetEntity = GetFullTargetEntity(basicTargetEntity.Id, localContext);
+                var targetEntity = GetFromPostImage(localContext);
 
-                PinballRoundScoreLogic.UpdateCurrentRoundScore(targetEntity, localContext);
-                PinballRoundScoreLogic.UpdateScoreTotals(targetEntity, localContext);
-                PinballRoundScoreLogic.UpdateGameWinnerAndStats(targetEntity, localContext);
+                tracingService.Trace($"target entity: {JsonSerializer.Serialize(targetEntity, new JsonSerializerOptions { WriteIndented = true })}");
+
+                var pinballRoundScore = PinballRoundScore.ParsePinballRoundScore(targetEntity);
+
+                PinballRoundScoreLogic.UpdateCurrentRoundScore(pinballRoundScore, localContext);
+                PinballRoundScoreLogic.UpdateScoreTotals(pinballRoundScore, localContext);
+                PinballRoundScoreLogic.UpdateGameWinnerAndStats(pinballRoundScore, localContext);
             }
             catch (Exception ex)
             {
@@ -51,9 +58,17 @@ namespace Nx.Score.Plugins.NxScorePlugins
             }
         }
 
-        private Entity GetFullTargetEntity(Guid targetId, ILocalPluginContext localContext)
+        private Entity GetFromPostImage(ILocalPluginContext localContext)
         {
-            return localContext.CurrentUserService.Retrieve("nx_pinballroundscore", targetId, new ColumnSet(true));
+            localContext.PluginExecutionContext.PostEntityImages.TryGetValue("scoresPostImage", out Entity image);
+
+            return image;
         }
+
+        // private Entity GetFullTargetEntity(Guid targetId, ILocalPluginContext localContext)
+        // {
+        //     // FIXME: only update fields not contained in the input parameters??? use image??
+        //     return localContext.CurrentUserService.Retrieve("nx_pinballroundscore", targetId, new ColumnSet(true));
+        // }
     }
 }

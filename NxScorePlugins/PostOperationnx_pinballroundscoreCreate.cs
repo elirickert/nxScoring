@@ -1,5 +1,8 @@
 using System;
+using System.Text.Json;
 using Microsoft.Xrm.Sdk;
+using Nx.Score.Plugins.NxScorePlugins.Logic;
+using Nx.Score.Plugins.NxScorePlugins.Model;
 
 namespace Nx.Score.Plugins.NxScorePlugins
 {
@@ -26,9 +29,18 @@ namespace Nx.Score.Plugins.NxScorePlugins
 
             Entity targetEntity = context.InputParameters.Contains("Target") ? (Entity)context.InputParameters["Target"] : null;
 
-            PinballRoundScoreLogic.UpdateCurrentRoundScore(targetEntity, localContext);
-            PinballRoundScoreLogic.UpdateScoreTotals(targetEntity, localContext);
-            PinballRoundScoreLogic.UpdateGameWinnerAndStats(targetEntity, localContext);
+            if (targetEntity == null)
+            {
+                throw new InvalidPluginExecutionException("Target Entity is null");
+            }
+
+            tracingService.Trace($"target entity: {JsonSerializer.Serialize(targetEntity, new JsonSerializerOptions { WriteIndented = true })}");
+
+            var pinballRoundScore = PinballRoundScore.ParsePinballRoundScore(targetEntity);
+
+            PinballRoundScoreLogic.UpdateCurrentRoundScore(pinballRoundScore, localContext);
+            PinballRoundScoreLogic.UpdateScoreTotals(pinballRoundScore, localContext);
+            PinballRoundScoreLogic.UpdateGameWinnerAndStats(pinballRoundScore, localContext);
         }
         catch (Exception ex)
         {

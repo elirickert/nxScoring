@@ -87,7 +87,13 @@
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PinballRoundScoreLogic.cs" />
+    <Compile Include="EntityParsing.cs" />
+    <Compile Include="Logic\PinballGameLogic.cs" />
+    <Compile Include="Logic\PinballRoundScoreLogic.cs" />
+    <Compile Include="Logic\PinballScoreLogic.cs" />
+    <Compile Include="Model\PinballGame.cs" />
+    <Compile Include="Model\PinballRoundScore.cs" />
+    <Compile Include="Model\PinballScore.cs" />
     <Compile Include="PostOperationnx_pinballroundscoreCreate.cs" />
     <Compile Include="PostOperationnx_pinballroundscoreUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
