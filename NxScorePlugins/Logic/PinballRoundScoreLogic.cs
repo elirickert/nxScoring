@@ -60,17 +60,16 @@ namespace Nx.Score.Plugins.NxScorePlugins.Logic
             }
 
             var query = new QueryExpression(PinballRoundScore.FieldNames.EntityName);
-            query.ColumnSet.AddColumn("nx_pointsafterround");
-            query.ColumnSet.AddColumn("nx_roundpoints");
+            query.ColumnSet = new ColumnSet(true);
             query.Criteria.AddCondition(PinballRoundScore.FieldNames.IdName, ConditionOperator.Equal, previousRoundRef.Id);
 
             return PinballRoundScore.ParsePinballRoundScore(localContext.CurrentUserService.RetrieveMultiple(query).Entities.FirstOrDefault());
         }
 
-        public static List<PinballRoundScore> GetOtherScoreRoundsSameRoundNumber(Guid scoreId, int roundNumber, ILocalPluginContext localContext)
+        private static List<PinballRoundScore> GetOtherScoreRoundsSameRoundNumber(Guid scoreId, int roundNumber, ILocalPluginContext localContext)
         {
             var query = new QueryExpression(PinballRoundScore.FieldNames.EntityName);
-            query.ColumnSet.AddColumn("nx_roundpoints");
+            query.ColumnSet = new ColumnSet(true);
             query.Criteria.AddCondition("nx_roundnumber", ConditionOperator.Equal, roundNumber);
 
             var queryNxPinballScore = query.AddLink("nx_pinballscore", "nx_pinballscoreid", "nx_pinballscoreid");

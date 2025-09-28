@@ -12,7 +12,7 @@ namespace Nx.Score.Plugins.NxScorePlugins.Logic
         public static List<PinballScore> GetAllScoresFromGameId(Guid pinballGameId, ILocalPluginContext localContext)
         {
             var query = new QueryExpression(PinballScore.FieldNames.EntityName);
-            query.ColumnSet.AddColumn(PinballScore.FieldNames.PointsTotal);
+            query.ColumnSet = new ColumnSet(true);
             query.Criteria.AddCondition(PinballScore.FieldNames.PinballGameId, ConditionOperator.Equal, pinballGameId);
 
             var entityList = localContext.CurrentUserService.RetrieveMultiple(query).Entities.ToList();

@@ -34,9 +34,9 @@ namespace Nx.Score.Plugins.NxScorePlugins
                 throw new InvalidPluginExecutionException("Target Entity is null");
             }
 
-            tracingService.Trace($"target entity: {JsonSerializer.Serialize(targetEntity, new JsonSerializerOptions { WriteIndented = true })}");
-
             var pinballRoundScore = PinballRoundScore.ParsePinballRoundScore(targetEntity);
+
+            tracingService.Trace($"pinballRoundScore: {JsonSerializer.Serialize(pinballRoundScore, new JsonSerializerOptions { WriteIndented = true })}");
 
             PinballRoundScoreLogic.UpdateCurrentRoundScore(pinballRoundScore, localContext);
             PinballRoundScoreLogic.UpdateScoreTotals(pinballRoundScore, localContext);

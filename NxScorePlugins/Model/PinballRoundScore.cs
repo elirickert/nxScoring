@@ -13,6 +13,7 @@ namespace Nx.Score.Plugins.NxScorePlugins.Model
             public const string PointsAfterRound = "nx_pointsafterround";
             public const string RoundPoints = "nx_roundpoints";
             public const string RoundNumber = "nx_roundnumber";
+            public const string ExtraBallNumber = "nx_extraballnumber";
             public const string PreviousRoundId = "nx_previousroundid";
             public const string PinballScoreId = "nx_pinballscoreid";
         }
@@ -21,6 +22,7 @@ namespace Nx.Score.Plugins.NxScorePlugins.Model
         public int PointsAfterRound { get; set; }
         public int RoundPoints { get; set; }
         public int RoundNumber { get; set; }
+        public int ExtraBallNumber { get; set; }
         public EntityReference PreviousRoundScoreId { get; set; }
         public EntityReference PinballScoreId { get; set; }
 
@@ -31,6 +33,7 @@ namespace Nx.Score.Plugins.NxScorePlugins.Model
                 Id = pinballScoreRoundEntity.Id,
                 PointsAfterRound = EntityParsing.GetIntValueFromEntity(pinballScoreRoundEntity, FieldNames.PointsAfterRound, true),
                 RoundPoints = EntityParsing.GetIntValueFromEntity(pinballScoreRoundEntity, FieldNames.RoundPoints, true),
+                ExtraBallNumber = EntityParsing.GetIntValueFromEntity(pinballScoreRoundEntity, FieldNames.ExtraBallNumber, true),
                 RoundNumber = EntityParsing.GetOptionSetValueFromEntity(pinballScoreRoundEntity, FieldNames.RoundNumber),
                 PreviousRoundScoreId = EntityParsing.GetEntityReferenceFromEntity(pinballScoreRoundEntity, FieldNames.PreviousRoundId),
                 PinballScoreId = EntityParsing.GetEntityReferenceFromEntity(pinballScoreRoundEntity, FieldNames.PinballScoreId)
